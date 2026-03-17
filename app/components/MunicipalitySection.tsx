@@ -85,9 +85,9 @@ export default function MunicipalitySection() {
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src="https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?w=800"
-                alt="Comunidad de El Alcázar"
-                className="w-full h-[600px] object-cover"
+                src="/fotoalcazar.png"
+                alt="Vista de El Alcázar"
+                className="h-[420px] w-full object-cover object-center sm:h-[520px] lg:h-[600px]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary-900/30 to-transparent" />
             </div>

@@ -1,43 +1,86 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { ArrowRight, FileText, Building2 } from 'lucide-react';
 
 export default function HeroSection() {
+  const subtitle = 'Portal oficial del municipio';
+  const description = 'Trabajamos para fortalecer nuestra comunidad, preservar nuestra identidad local y facilitar el acceso a información y servicios para todos los vecinos de El Alcázar.';
+  const [typedSubtitle, setTypedSubtitle] = useState('');
+  const [typedDescription, setTypedDescription] = useState('');
+
+  useEffect(() => {
+    setTypedSubtitle('');
+    setTypedDescription('');
+
+    let subtitleIndex = 0;
+    let descriptionIndex = 0;
+    let descriptionTimer: number | undefined;
+
+    const subtitleTimer = window.setInterval(() => {
+      subtitleIndex += 1;
+      setTypedSubtitle(subtitle.slice(0, subtitleIndex));
+
+      if (subtitleIndex >= subtitle.length) {
+        window.clearInterval(subtitleTimer);
+
+        descriptionTimer = window.setInterval(() => {
+          descriptionIndex += 1;
+          setTypedDescription(description.slice(0, descriptionIndex));
+
+          if (descriptionIndex >= description.length) {
+            window.clearInterval(descriptionTimer);
+          }
+        }, 18);
+      }
+    }, 35);
+
+    return () => {
+      window.clearInterval(subtitleTimer);
+      if (descriptionTimer) {
+        window.clearInterval(descriptionTimer);
+      }
+    };
+  }, []);
+
   return (
     <section id="inicio" className="relative flex min-h-[82vh] items-center pt-[72px] sm:min-h-[90vh] sm:pt-20">
-      {/* Imagen de fondo */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-900/80 via-primary-800/70 to-primary-700/60 z-10" />
+      {/* Imagen de fondo oficial */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1600"
-          alt="Naturaleza de Misiones"
-          className="w-full h-full object-cover"
+          src="/fondoalcazar.png"
+          alt=""
+          aria-hidden="true"
+          className="h-full w-full object-cover object-[center_28%] sm:object-[center_32%] lg:object-center"
         />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-950/88 via-primary-900/62 to-primary-800/34 z-10" />
+        <div className="absolute inset-x-0 bottom-0 top-[42%] bg-gradient-to-t from-primary-950/62 to-transparent z-10" />
       </div>
 
       {/* Contenido */}
       <div className="relative z-20 mx-auto max-w-7xl px-5 sm:px-6 lg:px-8 py-16 sm:py-24">
-        <div className="max-w-3xl">
+        <div className="max-w-3xl rounded-[2rem] border border-white/18 bg-primary-950/38 px-6 py-7 shadow-[0_18px_60px_rgba(0,0,0,0.28)] backdrop-blur-md sm:px-8 sm:py-9">
           {/* Badge */}
-          <div className="mb-5 inline-flex items-center space-x-2 rounded-full border border-white/30 bg-white/20 px-4 py-2 backdrop-blur-sm animate-fade-in">
-            <Building2 className="text-white" size={16} />
-            <span className="text-white text-sm font-medium">Gobierno Municipal</span>
+          <div className="mb-5 inline-flex items-center space-x-2 rounded-full border border-emerald-200/35 bg-emerald-400/12 px-4 py-2 backdrop-blur-sm animate-fade-in">
+            <Building2 className="text-emerald-100" size={16} />
+            <span className="text-emerald-100 text-sm font-semibold tracking-[0.02em]">Gobierno Municipal</span>
           </div>
 
           {/* Título principal */}
-          <h1 className="mb-5 font-display text-4xl font-bold leading-[1.05] text-white animate-fade-in-up sm:text-6xl lg:text-7xl">
+          <h1 className="mb-5 max-w-[11ch] text-balance font-display text-4xl font-bold leading-[1.02] text-white drop-shadow-[0_6px_24px_rgba(0,0,0,0.42)] animate-fade-in-up sm:max-w-[12ch] sm:text-6xl lg:text-7xl">
             Municipalidad de El Alcázar
           </h1>
 
           {/* Subtítulo */}
-          <p className="mb-3 font-display text-lg font-medium text-white/90 animate-fade-in-up animation-delay-100 sm:text-2xl">
-            Portal oficial del municipio
+          <p className="mb-3 min-h-[3.5rem] font-display text-lg font-semibold text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.36)] animate-fade-in-up animation-delay-100 sm:min-h-[4rem] sm:text-2xl">
+            {typedSubtitle}
+            <span className="typing-caret" aria-hidden="true" />
           </p>
 
           {/* Texto institucional */}
-          <p className="mb-8 max-w-2xl text-base leading-7 text-white/80 animate-fade-in-up animation-delay-200 sm:mb-10 sm:text-lg sm:leading-relaxed">
-            Trabajamos para fortalecer nuestra comunidad, preservar nuestra identidad local 
-            y facilitar el acceso a información y servicios para todos los vecinos de El Alcázar.
+          <p className="mb-8 max-w-2xl min-h-[8.75rem] text-base leading-7 text-primary-50/96 drop-shadow-[0_4px_18px_rgba(0,0,0,0.3)] animate-fade-in-up animation-delay-200 sm:mb-10 sm:min-h-[7.5rem] sm:text-lg sm:leading-relaxed">
+            {typedDescription}
+            <span className="typing-caret" aria-hidden="true" />
           </p>
 
           {/* CTAs */}
@@ -110,6 +153,25 @@ export default function HeroSection() {
           animation-delay: 0.3s;
           opacity: 0;
           animation-fill-mode: forwards;
+        }
+
+        .typing-caret {
+          display: inline-block;
+          width: 0.08em;
+          height: 1em;
+          margin-left: 0.12em;
+          vertical-align: -0.12em;
+          background: currentColor;
+          animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+          0%, 50% {
+            opacity: 1;
+          }
+          50.01%, 100% {
+            opacity: 0;
+          }
         }
       `}</style>
     </section>
