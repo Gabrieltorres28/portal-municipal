@@ -8,14 +8,131 @@
   html {
     scroll-behavior: smooth;
   }
-  
+
   body {
-    @apply antialiased;
+    @apply bg-white text-gray-900 antialiased;
+  }
+
+  * {
+    @apply border-gray-200;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .reveal {
+    --reveal-delay: 0ms;
+    opacity: 0;
+    transform: translate3d(0, 28px, 0) rotateX(4deg);
+    transform-origin: center bottom;
+    transition:
+      opacity 700ms ease,
+      transform 780ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay);
+    will-change: opacity, transform;
+  }
+
+  .reveal-left {
+    transform: translate3d(-34px, 18px, 0) rotateY(-6deg);
+    transform-origin: left center;
+  }
+
+  .reveal-right {
+    transform: translate3d(34px, 18px, 0) rotateY(6deg);
+    transform-origin: right center;
+  }
+
+  .reveal-zoom {
+    transform: translate3d(0, 18px, 0) scale(0.96);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) scale(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  .flip-card {
+    min-height: 300px;
+    perspective: 1200px;
+  }
+
+  .flip-card-inner {
+    position: relative;
+    min-height: 300px;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .flip-card-face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    min-height: 300px;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 1rem;
+    backface-visibility: hidden;
+  }
+
+  .flip-card-back {
+    transform: rotateY(180deg);
+  }
+
+  .flip-toggle:checked + .flip-card .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flip-label-less {
+    display: none;
+  }
+
+  .flip-toggle:checked ~ label .flip-label-more {
+    display: none;
+  }
+
+  .flip-toggle:checked ~ label .flip-label-less {
+    display: inline;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flip-card,
+    .flip-card-inner,
+    .flip-card-face {
+      min-height: auto;
+    }
+
+    .flip-card-inner {
+      display: grid;
+      gap: 1rem;
+      transform: none !important;
+      transition: none;
+    }
+
+    .flip-card-face {
+      position: static;
+      transform: none;
+    }
   }
 }

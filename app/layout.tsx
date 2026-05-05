@@ -4,7 +4,7 @@ import MunicipalChatbot from './components/chat/municipal-chatbot';
 
 export const metadata: Metadata = {
   title: 'Municipalidad de El Alcázar | Portal Oficial',
-  description: 'Portal oficial del municipio de El Alcázar, Misiones. Accedé a noticias, trámites, servicios y toda la información institucional.',
+  description: 'Portal oficial del municipio de El Alcázar, Misiones. Accedé a trámites, servicios, contacto e información institucional.',
   keywords: 'El Alcázar, Misiones, municipalidad, gobierno local, trámites, servicios municipales',
 };
 

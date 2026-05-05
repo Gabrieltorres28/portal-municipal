@@ -85,7 +85,7 @@ export default function MunicipalitySection() {
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src="/fotoalcazar.png"
+                src="/fotoalcazar.webp"
                 alt="Vista de El Alcázar"
                 className="h-[420px] w-full object-cover object-center sm:h-[520px] lg:h-[600px]"
               />

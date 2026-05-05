@@ -14,7 +14,7 @@ const authorities: Authority[] = [
     role: 'Intendente Municipal',
     description:
       'Médico y actual intendente municipal, encabeza la gestión de El Alcázar con compromiso comunitario, cercanía institucional y una visión orientada al desarrollo ordenado del municipio.',
-    image: '/intendente.png',
+    image: '/intendente.webp',
     imageClassName: 'object-[center_18%]',
   },
 ];

@@ -29,14 +29,14 @@ function createMessage(role: ChatMessage['role'], content: string, id?: string):
 }
 
 const quickPromptResponses: Record<string, string> = {
-  '¿Cómo pago la patente?':
-    'El pago de patente se gestiona en el portal oficial provincial de ATM Misiones. Podés ingresar desde este enlace: https://sinclavefiscal.atm.misiones.gob.ar/sc/automotor/emision_ba_ipa',
-  '¿Cómo hago un reclamo?':
-    'Para reclamos vecinales podés usar el correo reclamos@alcazar.gob.ar. Desde la sección de trámites del portal se abre un correo precompletado para completar tu reclamo.',
-  '¿Qué trámites puedo hacer desde la web?':
-    'Desde la web podés acceder a pago de patente, impuesto inmobiliario, reclamos vecinales, gestiones de cementerio municipal, turnos y atención, y formularios y requisitos.',
-  'Contame sobre El Alcázar':
-    'El Alcázar es un municipio de Misiones con fuerte identidad comunitaria y cercanía con sus vecinos. Este portal reúne información institucional, accesos a trámites y canales básicos de orientación municipal.',
+  '¿Para qué sirve esto?':
+    'Este es el asistente del portal municipal de El Alcázar. Sirve para orientarte sobre trámites, servicios, reclamos, turnos, formularios e información institucional.',
+  '¿Dónde está El Alcázar?':
+    'El Alcázar está en la provincia de Misiones, Argentina. Este portal reúne información institucional, trámites y canales de atención municipal.',
+  '¿Quién es el intendente?':
+    'El intendente municipal de El Alcázar es el Dr. Eduardo Vázquez. Encabeza el Departamento Ejecutivo y la coordinación institucional de la gestión local.',
+  '¿Qué trámites puedo hacer?':
+    'Desde el portal podés orientarte sobre patente, impuesto inmobiliario, reclamos vecinales, cementerio municipal, turnos y formularios.',
 };
 
 export default function MunicipalChatbot() {
@@ -46,7 +46,7 @@ export default function MunicipalChatbot() {
     createMessage('assistant', municipalAssistantGreeting, 'assistant-initial'),
   ]);
   const [isLoading, setIsLoading] = useState(false);
-  const bottomRef = useRef<HTMLDivElement | null>(null);
+  const messagesScrollRef = useRef<HTMLDivElement | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const hasConversation = useMemo(
@@ -71,7 +71,16 @@ export default function MunicipalChatbot() {
   }, [isOpen]);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    const scrollArea = messagesScrollRef.current;
+
+    if (!scrollArea) {
+      return;
+    }
+
+    scrollArea.scrollTo({
+      top: scrollArea.scrollHeight,
+      behavior: 'smooth',
+    });
   }, [messages, isLoading]);
 
   async function submitMessage(text: string) {
@@ -161,11 +170,13 @@ export default function MunicipalChatbot() {
   return (
     <>
       <div
-        className={`fixed bottom-4 right-4 z-50 transition-all duration-200 sm:bottom-6 sm:right-6 ${
-          isOpen ? 'pointer-events-none opacity-0' : 'pointer-events-auto opacity-100'
+        className={`fixed bottom-4 right-4 z-[70] transition-all duration-200 sm:bottom-6 sm:right-6 ${
+          isOpen
+            ? 'pointer-events-none translate-y-2 scale-95 opacity-0'
+            : 'pointer-events-auto translate-y-0 scale-100 opacity-100'
         }`}
       >
-        <div className="mb-2 flex justify-end sm:mb-3">
+        <div className="mb-2 flex justify-end transition-opacity sm:mb-3">
           <span className="inline-flex items-center rounded-full border border-primary-100 bg-white/95 px-3 py-1 text-xs font-semibold text-primary-700 shadow-[0_8px_24px_rgba(22,66,47,0.12)] backdrop-blur-sm animate-[fadeIn_.4s_ease-out]">
             <Sparkles className="mr-1.5 h-3.5 w-3.5" />
             Asistente
@@ -177,30 +188,30 @@ export default function MunicipalChatbot() {
           className="group flex h-14 w-14 items-center justify-center rounded-2xl border border-primary-700/10 bg-primary-600 text-white shadow-[0_18px_38px_rgba(22,66,47,0.28)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-primary-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 sm:h-16 sm:w-16"
           aria-expanded={isOpen}
           aria-controls="municipal-chat-panel"
-          aria-label={isOpen ? 'Cerrar asistente' : 'Abrir asistente municipal'}
+          aria-label="Abrir asistente municipal"
         >
-          {isOpen ? <X className="h-7 w-7" /> : <Bot className="h-7 w-7 transition-transform duration-300 group-hover:scale-105" />}
+          <Bot className="h-7 w-7 transition-transform duration-300 group-hover:scale-105" />
         </button>
       </div>
 
       <div
         id="municipal-chat-panel"
-        className={`fixed inset-x-4 bottom-20 top-[88px] z-50 origin-bottom-right transition-all duration-300 ease-out sm:inset-x-auto sm:top-auto sm:right-6 sm:bottom-28 sm:w-[390px] ${
+        className={`fixed inset-x-4 bottom-24 z-[60] h-[min(620px,calc(100vh-7rem))] origin-bottom-right transition-all duration-300 ease-out sm:inset-x-auto sm:right-6 sm:bottom-24 sm:h-[min(660px,calc(100vh-8rem))] sm:w-[390px] ${
           isOpen
             ? 'pointer-events-auto translate-y-0 opacity-100'
             : 'pointer-events-none translate-y-4 opacity-0'
         }`}
         aria-hidden={!isOpen}
       >
-        <section className="flex h-full flex-col overflow-hidden rounded-[24px] border border-primary-100/80 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.18)] sm:block sm:h-auto sm:rounded-[28px]">
-          <header className="border-b border-gray-100 bg-[linear-gradient(180deg,#f7fbf8_0%,#ffffff_100%)] px-4 py-4 sm:px-6">
+        <section className="flex h-full min-h-0 flex-col overflow-hidden rounded-[24px] border border-primary-100/80 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.18)] sm:rounded-[28px]">
+          <header className="shrink-0 border-b border-gray-100 bg-[linear-gradient(180deg,#f7fbf8_0%,#ffffff_100%)] px-4 py-3 sm:px-6 sm:py-4">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <div className="inline-flex items-center rounded-full bg-primary-50 px-3 py-1 text-xs font-semibold text-primary-700">
                   <MessageSquare className="mr-1.5 h-3.5 w-3.5" />
                   Asistente El Alcázar
                 </div>
-                <h2 className="mt-3 font-display text-xl font-bold text-gray-900">
+                <h2 className="mt-2 font-display text-lg font-bold text-gray-900 sm:mt-3 sm:text-xl">
                   Asistente El Alcázar
                 </h2>
                 <p className="mt-1 text-sm text-gray-600">Tu guía municipal</p>
@@ -210,7 +221,7 @@ export default function MunicipalChatbot() {
                 <button
                   type="button"
                   onClick={resetChat}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-500 transition-colors duration-200 hover:border-primary-200 hover:text-primary-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
+                  className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-500 transition-colors duration-200 hover:border-primary-200 hover:text-primary-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
                   aria-label="Limpiar conversación"
                 >
                   <Trash2 className="h-4.5 w-4.5" />
@@ -218,7 +229,7 @@ export default function MunicipalChatbot() {
                 <button
                   type="button"
                   onClick={() => setIsOpen(false)}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-500 transition-colors duration-200 hover:border-primary-200 hover:text-primary-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
+                  className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-500 transition-colors duration-200 hover:border-primary-200 hover:text-primary-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
                   aria-label="Cerrar asistente"
                 >
                   <X className="h-4.5 w-4.5" />
@@ -227,7 +238,10 @@ export default function MunicipalChatbot() {
             </div>
           </header>
 
-          <div className="flex-1 overflow-y-auto bg-[linear-gradient(180deg,#fbfcfb_0%,#f7faf8_100%)] px-4 py-4 sm:max-h-[68vh] sm:min-h-[460px] sm:flex-none sm:px-5">
+          <div
+            ref={messagesScrollRef}
+            className="min-h-0 flex-1 overflow-y-auto overscroll-contain bg-[linear-gradient(180deg,#fbfcfb_0%,#f7faf8_100%)] px-4 py-4 sm:px-5"
+          >
             {!hasConversation ? (
               <div className="mb-4 rounded-2xl border border-primary-100 bg-white/85 p-4 shadow-sm">
                 <p className="text-sm font-semibold text-gray-900">Consultas frecuentes</p>
@@ -257,7 +271,7 @@ export default function MunicipalChatbot() {
                       message.role === 'user'
                         ? 'rounded-br-md bg-primary-600 text-white'
                         : 'rounded-bl-md border border-white/70 bg-white text-gray-700'
-                    }`}
+                    } whitespace-pre-line break-words`}
                   >
                     {message.content}
                   </article>
@@ -273,11 +287,10 @@ export default function MunicipalChatbot() {
                 </div>
               ) : null}
 
-              <div ref={bottomRef} />
             </div>
           </div>
 
-          <div className="border-t border-gray-100 bg-white px-4 py-3 sm:px-5 sm:py-4">
+          <div className="shrink-0 border-t border-gray-100 bg-white px-4 py-3 sm:px-5 sm:py-4">
             <form onSubmit={handleSubmit} className="space-y-3">
               <label htmlFor="municipal-chat-input" className="sr-only">
                 Escribí tu consulta

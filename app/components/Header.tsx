@@ -20,7 +20,6 @@ export default function Header() {
     { label: 'Inicio', href: '#inicio' },
     { label: 'Municipio', href: '#municipio' },
     { label: 'Autoridades', href: '#autoridades' },
-    { label: 'Noticias', href: '#noticias' },
     { label: 'Trámites y Servicios', href: '#servicios' },
     { label: 'Turismo', href: '#turismo' },
     { label: 'Contacto', href: '#contacto' },
@@ -40,7 +39,7 @@ export default function Header() {
             <a href="#inicio" className="flex min-w-0 items-center gap-2.5 transition-opacity hover:opacity-90 sm:gap-3.5 lg:gap-4">
               <div className="relative h-10 w-10 shrink-0 sm:h-11 sm:w-11 lg:h-12 lg:w-12">
                 <Image
-                  src="/logoalcazar.png"
+                  src="/logoalcazar.webp"
                   alt="Logo oficial de la Municipalidad de El Alcázar"
                   fill
                   sizes="(max-width: 640px) 44px, 48px"

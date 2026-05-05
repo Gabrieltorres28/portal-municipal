@@ -1,13 +1,14 @@
-import Header from './components/Header';
-import HeroSection from './components/HeroSection';
-import QuickAccessSection from './components/QuickAccessSection';
-import MunicipalitySection from './components/MunicipalitySection';
-import AuthoritiesSection from './components/AuthoritiesSection';
-import ServicesSection from './components/ServicesSection';
-import NewsSection from './components/NewsSection';
-import TourismSection from './components/TourismSection';
-import ContactSection from './components/ContactSection';
-import Footer from './components/Footer';
+import { Footer } from '@/components/layout/footer';
+import { Header } from '@/components/layout/header';
+import { AuthoritiesSection } from '@/components/sections/authorities';
+import { ContactSection } from '@/components/sections/contact';
+import { FaqSection } from '@/components/sections/faq';
+import { HeroSection } from '@/components/sections/hero';
+import { InstitutionalTrustSection } from '@/components/sections/institutional-trust';
+import { MunicipalityOverviewSection } from '@/components/sections/municipality-overview';
+import { QuickAccessSection } from '@/components/sections/quick-access';
+import { ServicesSection } from '@/components/sections/services';
+import { TourismSection } from '@/components/sections/tourism';
 
 export default function Home() {
   return (
@@ -15,11 +16,12 @@ export default function Home() {
       <Header />
       <HeroSection />
       <QuickAccessSection />
-      <MunicipalitySection />
-      <AuthoritiesSection />
+      <MunicipalityOverviewSection />
+      <InstitutionalTrustSection />
       <ServicesSection />
-      <NewsSection />
+      <AuthoritiesSection />
       <TourismSection />
+      <FaqSection />
       <ContactSection />
       <Footer />
     </main>

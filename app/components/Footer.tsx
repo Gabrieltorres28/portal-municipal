@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { Facebook, Instagram, Twitter, MapPin, Phone, Mail } from 'lucide-react';
 
 export default function Footer() {
@@ -8,7 +9,6 @@ export default function Footer() {
   const quickLinks = [
     { label: 'Inicio', href: '#inicio' },
     { label: 'Municipio', href: '#municipio' },
-    { label: 'Noticias', href: '#noticias' },
     { label: 'Trámites y Servicios', href: '#servicios' },
     { label: 'Turismo', href: '#turismo' },
     { label: 'Contacto', href: '#contacto' },
@@ -29,8 +29,14 @@ export default function Footer() {
           {/* Logo y descripción */}
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-3 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center shadow-lg">
-                <span className="text-white font-display font-bold text-xl">EA</span>
+              <div className="relative h-12 w-12 overflow-hidden rounded-xl bg-white p-1 shadow-lg">
+                <Image
+                  src="/logoalcazar.webp"
+                  alt=""
+                  fill
+                  sizes="48px"
+                  className="object-contain p-1"
+                />
               </div>
               <div>
                 <h3 className="font-display font-bold text-lg">

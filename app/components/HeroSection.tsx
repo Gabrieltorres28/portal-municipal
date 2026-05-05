@@ -48,7 +48,7 @@ export default function HeroSection() {
       {/* Imagen de fondo oficial */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img
-          src="/fondoalcazar.png"
+          src="/fondoalcazar.webp"
           alt=""
           aria-hidden="true"
           className="h-full w-full object-cover object-[center_28%] sm:object-[center_32%] lg:object-center"
@@ -86,11 +86,11 @@ export default function HeroSection() {
           {/* CTAs */}
           <div className="flex flex-col gap-3 animate-fade-in-up animation-delay-300 sm:flex-row sm:gap-4">
             <a
-              href="#noticias"
+              href="#municipio"
               className="group inline-flex min-h-12 items-center justify-center rounded-xl bg-white px-6 py-3.5 font-semibold text-primary-700 shadow-xl transition-all duration-200 hover:scale-[1.02] hover:bg-primary-50 hover:shadow-2xl sm:px-8 sm:py-4"
             >
               <FileText className="mr-2 group-hover:scale-110 transition-transform" size={20} />
-              Ver noticias
+              Conocer el municipio
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
             </a>
             <a

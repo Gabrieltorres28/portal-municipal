@@ -1,13 +1,13 @@
 'use client';
 
-import { Newspaper, FileText, MapPin, Mail, ArrowRight } from 'lucide-react';
+import { Building2, FileText, MapPin, Mail, ArrowRight } from 'lucide-react';
 
 const quickAccess = [
   {
-    icon: Newspaper,
-    title: 'Noticias',
-    description: 'Mantente informado sobre novedades, obras y eventos de nuestra comunidad.',
-    href: '#noticias',
+    icon: Building2,
+    title: 'Municipio',
+    description: 'Conocé información institucional y datos útiles de El Alcázar.',
+    href: '#municipio',
     color: 'from-blue-500 to-blue-600',
   },
   {
