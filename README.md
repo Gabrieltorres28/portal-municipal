@@ -1,6 +1,7 @@
 # Portal Municipal - El Alcázar, Misiones
 
 Portal web oficial de la Municipalidad de El Alcázar, provincia de Misiones, Argentina.
+Proyecto conectado a despliegue continuo.
 
 ## Características
 
